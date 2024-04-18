@@ -13,7 +13,7 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const {data} = useData()
   return <>
     <header>
       <Menu />
@@ -116,13 +116,15 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
+        {data && 
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
+          imageSrc={data?.cover}
+          title={data?.title}
+          date={new Date(data?.date)}
           small
-          label="boom"
+          label={data?.type} // Affichage du type d'évènement dans le label
         />
+        }
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
