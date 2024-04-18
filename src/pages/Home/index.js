@@ -14,6 +14,9 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const {data} = useData()
+  const lastEvent =
+    data && data.events ? data.events[data.events.length - 1] : null;
+    // Permet d'extraire le dernier évènement de events.
   return <>
     <header>
       <Menu />
@@ -116,13 +119,13 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        {data && 
+        {lastEvent && 
         <EventCard
-          imageSrc={data?.cover}
-          title={data?.title}
-          date={new Date(data?.date)}
+          imageSrc={lastEvent?.cover}
+          title={lastEvent?.title}
+          date={new Date(lastEvent?.date)}
           small
-          label={data?.type} // Affichage du type d'évènement dans le label
+          label={lastEvent?.type} // Affichage du type d'évènement dans le label
         />
         }
       </div>
