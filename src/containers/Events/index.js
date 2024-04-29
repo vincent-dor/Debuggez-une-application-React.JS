@@ -17,7 +17,9 @@ const EventList = () => {
     (!type
       ? data?.events
       : data?.events.filter((event) => event.type === type)) || [] // Ajout d'un filtre pour afficher les bon types d'évènement correspondant aux bonnes catégories
-  ).filter((event, index) => {
+  )
+  .sort((a, b) => new Date(b.date) - new Date(a.date)) // Tri par date décroissante
+  .filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
@@ -44,7 +46,7 @@ const EventList = () => {
             selection={Array.from(typeList)}
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
-          <div id="events" className="ListContainer">
+          <div id="events" className="ListContainer"  data-testid="listEvents">
             {filteredEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
